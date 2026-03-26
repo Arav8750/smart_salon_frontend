@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://salon-backendd.onrender.com';
+
+const API_BASE_URL = 'https://salon-backendd.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Request interceptor: attach JWT token
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -17,7 +18,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor: handle auth errors
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -29,10 +30,10 @@ api.interceptors.response.use(
   }
 );
 
-// AUTH
+// ✅ AUTH (FIXED — removed extra /api)
 export const authAPI = {
-  login: (data) => api.post('/api/auth/login', data),
-  register: (data) => api.post('/api/auth/register', data),
+  login: (data) => api.post('/auth/login', data),
+  register: (data) => api.post('/auth/register', data),
 };
 
 // SERVICES
@@ -48,8 +49,8 @@ export const servicesAPI = {
 export const barbersAPI = {
   getAll: () => api.get('/barbers'),
   getAvailable: () => api.get('/barbers/available'),
-  getMe: () => api.get('/barbers/me'),                          // barber's own profile
-  getMyAppointments: () => api.get('/barbers/my-appointments'), // barber's own appointments
+  getMe: () => api.get('/barbers/me'),
+  getMyAppointments: () => api.get('/barbers/my-appointments'),
   create: (data) => api.post('/barbers', data),
   update: (id, data) => api.put(`/barbers/${id}`, data),
   delete: (id) => api.delete(`/barbers/${id}`),
