@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './context/AuthContext';
 
 // Auth pages
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
+import Login from './pages/api/auth/Login';
+import Register from './pages/api/auth/Register';
 
 // Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
